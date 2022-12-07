@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
@@ -9,6 +10,8 @@ const Register = () => {
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,37 +21,42 @@ const Register = () => {
     const file = e.target[3].files[0];
 
     try {
-      //create user
+      //Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      //create unique image name
-      // const da te = new Date().getTime();
-      // const storageRef = ref(storage, `${displayName + date}`);
 
-      const storageRef = ref(storage, displayName);
+      //Create a unique image name
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${displayName + date}`);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        (error) => {
-          setError(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
             });
+            //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
               uid: res.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
             });
-          });
-        },
-      );
-    } catch (error) {
+
+            //create empty user chats on firestore
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+            navigate("/");
+          } catch (err) {
+            console.log(err);
+            setError(true);
+            setLoading(false);
+          }
+        });
+      });
+    } catch (err) {
       setError(true);
+      setLoading(false);
     }
   };
 
@@ -85,10 +93,24 @@ const Register = () => {
           <button>Sign up</button>
           {error && <span>Something went wrong ...</span>}
         </form>
-        <p>You do have an account? Login</p>
+        <p>
+          You do have an account?
+          <Link
+            className="link"
+            to="/login">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
 };
 
 export default Register;
+
+// apiKey: "AIzaSyAdd5RO5fe3dzfiX1hf9LBNP1SCyQ-BcX0",
+// authDomain: "chatt-afeb8.firebaseapp.com",
+// projectId: "chatt-afeb8",
+// storageBucket: "chatt-afeb8.appspot.com",
+// messagingSenderId: "190372645364",
+// appId: "1:190372645364:web:b596d4c22fa518335a91a1",

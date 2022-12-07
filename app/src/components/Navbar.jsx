@@ -1,16 +1,20 @@
 import React from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { currentUser } = React.useContext(AuthContext);
   return (
     <div className="navbar">
       <div className="user">
         <img
-          src="https://images.pexels.com/photos/13677413/pexels-photo-13677413.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+          src={currentUser.photoURL}
           alt="user"
         />
-        <span>John</span>
-        <button>Logout</button>
+        <span>{currentUser.displayName}</span>
       </div>
+      <button onClick={() => signOut(auth)}>Logout</button>
     </div>
   );
 };

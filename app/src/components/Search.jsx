@@ -1,23 +1,110 @@
 import React from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Search = () => {
+  const [userNameFromInput, setUserNameFromInput] = React.useState("");
+  const [actualUser, setActualUser] = React.useState(null);
+  const [error, setError] = React.useState(false);
+
+  const { currentUser } = React.useContext(AuthContext);
+
+  const handleSearch = async () => {
+    const queryInput = query(
+      collection(db, "users"),
+      where("displayName", "==", userNameFromInput),
+    );
+
+    try {
+      const querySnapshot = await getDocs(queryInput);
+      querySnapshot.forEach((doc) => {
+        setActualUser(doc.data());
+      });
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  const handleKeyMove = (e) => {
+    e.code === "Enter" && handleSearch();
+  };
+
+  const handleUserChat = async () => {
+    //check chats
+    const combinedId =
+      currentUser.uid > actualUser.uid
+        ? currentUser.uid + actualUser.uid
+        : actualUser.uid + currentUser.uid;
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+
+      if (!res.exists()) {
+        //create chat collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+        //create user chat
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: actualUser.uid,
+            displayName: actualUser.displayName,
+            photoURL: actualUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", actualUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      setError(true);
+    }
+    setActualUser(null);
+    setUserNameFromInput("");
+  };
+
   return (
     <div className="search">
-      <div className="search-form">
+      <div className="search__form">
+        <BiSearchAlt2 className="searct__icon" />
         <input
           type="text"
-          placeholder="Find a user"
+          placeholder="find a user"
+          onKeyDown={handleKeyMove}
+          value={userNameFromInput}
+          onChange={(e) => setUserNameFromInput(e.target.value)}
         />
       </div>
-      <div className="user-chat">
-        <img
-          src="https://images.pexels.com/photos/13355622/pexels-photo-13355622.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-          alt=""
-        />
-        <div className="user__chat--info">
-          <span>name</span>
+      {error && <span>User not found :( </span>}
+      {actualUser && (
+        <div
+          className="user-chat"
+          onClick={handleUserChat}>
+          <img
+            src={actualUser.photoURL}
+            alt="user"
+          />
+          <div className="user__chat--info">
+            <span>{actualUser.displayName}</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
