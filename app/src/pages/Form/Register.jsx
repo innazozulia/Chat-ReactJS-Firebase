@@ -9,6 +9,12 @@ import "../Form/Form.scss";
 const Register = () => {
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  // const [status, setStatus] = React.useState("");
+  // const options = ["Online", "Offline", "Busy", "Absent"];
+
+  // const onOptionChangeHandler = (event) => {
+  //   setStatus(event.target.value);
+  // };
 
   const navigate = useNavigate();
 
@@ -19,6 +25,7 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
+    // const status = e.target[4].value;
 
     try {
       //Create user
@@ -35,6 +42,7 @@ const Register = () => {
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
+              // status,
             });
             //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
@@ -42,6 +50,7 @@ const Register = () => {
               displayName,
               email,
               photoURL: downloadURL,
+              // status,
             });
 
             //create empty user chats on firestore
@@ -65,34 +74,44 @@ const Register = () => {
       <div className="form__wrapper">
         <span className="logo">Leaf Chat</span>
         <span className="title">Register</span>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Display name"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            style={{ display: "none" }}
-            type="file"
-            id="file"
-          />
-          <label htmlFor="file">
-            <img
-              src="./img/add.png"
-              alt="add avatar"
+        {loading ? (
+          <p>Loading data...</p>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Display name"
             />
-            <span>Add an avatar</span>
-          </label>
-          <button>Sign up</button>
-          {error && <span>Something went wrong ...</span>}
-        </form>
+            <input
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+            />
+            <input
+              style={{ display: "none" }}
+              type="file"
+              id="file"
+            />
+            <label htmlFor="file">
+              <img
+                src="./img/add.png"
+                alt="add avatar"
+              />
+              <span>Add an avatar</span>
+            </label>
+            {/* <select onChange={onOptionChangeHandler}>
+              <option>Choose your status</option>
+              {options.map((option, index) => {
+                return <option key={index}>{option}</option>;
+              })}
+            </select> */}
+            <button>Sign up</button>
+            {error && <span>Something went wrong ...</span>}
+          </form>
+        )}
         <p>
           You do have an account?
           <Link
@@ -107,10 +126,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// apiKey: "AIzaSyAdd5RO5fe3dzfiX1hf9LBNP1SCyQ-BcX0",
-// authDomain: "chatt-afeb8.firebaseapp.com",
-// projectId: "chatt-afeb8",
-// storageBucket: "chatt-afeb8.appspot.com",
-// messagingSenderId: "190372645364",
-// appId: "1:190372645364:web:b596d4c22fa518335a91a1",

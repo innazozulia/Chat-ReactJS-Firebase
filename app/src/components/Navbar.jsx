@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const { currentUser } = React.useContext(AuthContext);
+  console.log(currentUser.status);
   return (
     <div className="navbar">
       <div className="user">
@@ -13,7 +14,9 @@ const Navbar = () => {
           alt="user"
         />
         <span>{currentUser.displayName}</span>
+        <span>{currentUser.status}</span>
       </div>
+
       <button onClick={() => signOut(auth)}>Logout</button>
     </div>
   );

@@ -8,14 +8,21 @@ import {
   BsFillCameraVideoFill,
   BsFillCameraVideoOffFill,
 } from "react-icons/bs";
+import Menu from "./Menu";
+import { ChatContext } from "../context/ChatContext";
 
 const Chat = () => {
   const [camera, setCamera] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
 
+  const { data } = React.useContext(ChatContext);
+
+  console.log(data);
   return (
     <div className="chat">
       <div className="chat__info">
-        <span>username</span>
+        <span>{data.user?.displayName}</span>
+        <span>{data.user?.status}</span>
         <div className="chat__icons">
           <button
             onClick={() => setCamera(!camera)}
@@ -40,7 +47,8 @@ const Chat = () => {
             />
           ) : null}
           <AiOutlineUserAdd />
-          <IoMdMore />
+          <IoMdMore onClick={(e) => setOpenMenu(!openMenu)} />
+          {openMenu && <Menu />}
         </div>
       </div>
       <Messages />
