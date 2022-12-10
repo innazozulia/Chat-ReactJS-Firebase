@@ -159,6 +159,8 @@
                         img {
                             width: 50%;
                         }
+
+
                     }
 
                     &.owner {
@@ -177,6 +179,55 @@
 
 
                     }
+
+                    // .ticontainer {
+
+                    //     .tiblock {
+                    //         align-items: center;
+                    //         display: flex;
+                    //         height: 17px;
+
+                    //         .tidot {
+                    //             background-color: #1554d2;
+                    //             animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+                    //             border-radius: 2px;
+                    //             display: inline-block;
+                    //             height: 4px;
+                    //             margin-right: 2px;
+                    //             width: 4px;
+
+
+                    //             @keyframes mercuryTypingAnimation {
+                    //                 0% {
+                    //                     -webkit-transform: translateY(0px)
+                    //                 }
+
+                    //                 28% {
+                    //                     -webkit-transform: translateY(-5px)
+                    //                 }
+
+                    //                 44% {
+                    //                     -webkit-transform: translateY(0px)
+                    //                 }
+                    //             }
+                    //         }
+
+                    //         .tidot:nth-child(1) {
+                    //             animation-delay: 200ms;
+                    //         }
+
+                    //         .tidot:nth-child(2) {
+                    //             animation-delay: 300ms;
+                    //         }
+
+                    //         .tidot:nth-child(3) {
+                    //             animation-delay: 400ms;
+                    //         }
+
+
+                    //     }
+
+                    // }
                 }
             }
 
@@ -196,12 +247,80 @@
                 border-radius: 10px;
                 position: relative;
 
+                .red {
+                    background-color: red;
+                    height: 30px;
+                    width: 400px;
+                }
+
+                .ticontainer {
+
+                    .tiblock {
+                        align-items: center;
+                        display: flex;
+                        height: 17px;
+
+                        .tidot {
+                            background-color: #1554d2;
+                            border-radius: 2px;
+                            display: inline-block;
+                            height: 4px;
+                            margin-right: 2px;
+                            width: 4px;
+
+                            .red {
+                                background-color: red;
+                            }
+
+                            .tidot__active {
+                                animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+                                border-radius: 2px;
+                                display: inline-block;
+                                height: 4px;
+                                margin-right: 2px;
+                                width: 4px;
+                            }
+
+                            @keyframes mercuryTypingAnimation {
+                                0% {
+                                    -webkit-transform: translateY(0px)
+                                }
+
+                                28% {
+                                    -webkit-transform: translateY(-5px)
+                                }
+
+                                44% {
+                                    -webkit-transform: translateY(0px)
+                                }
+                            }
+                        }
+
+                        .tidot:nth-child(1) {
+                            animation-delay: 200ms;
+                        }
+
+                        .tidot:nth-child(2) {
+                            animation-delay: 300ms;
+                        }
+
+                        .tidot:nth-child(3) {
+                            animation-delay: 400ms;
+                        }
+
+
+                    }
+
+                }
+
+
                 input {
                     width: 100%;
                     border: none;
                     outline: none;
                     color: #2f2d52;
                     font-size: 18px;
+
 
 
                     &::placeholder {
@@ -236,6 +355,7 @@
                     justify-content: center;
                     text-align: center;
                     gap: 10px;
+                    cursor: pointer;
 
                     .send__icon {
                         color: rgb(85, 85, 221);
@@ -363,8 +483,19 @@
                         color: rgb(144, 141, 141);
                         // transition: all 1s ease;
 
+                        .media {
+                            font-size: 14px;
+                            color: rgb(144, 141, 141);
+                            display: flex;
+                            align-items: center;
+                            text-align: center;
 
+                            .media__icon {
+                                margin-left: 7px;
+                            }
+                        }
                     }
+
                 }
             }
         }

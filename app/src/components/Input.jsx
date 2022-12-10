@@ -23,13 +23,12 @@ const Input = () => {
   const [image, setImage] = React.useState(null);
   const [video, setVideo] = React.useState(null);
   const [audio, setAudio] = React.useState(null);
-  const [error, setError] = React.useState(false);
 
   const { currentUser } = React.useContext(AuthContext);
   const { data } = React.useContext(ChatContext);
 
   const handleSendMessage = async () => {
-    if (image && video && audio) {
+    if (image) {
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, image);
@@ -43,51 +42,46 @@ const Input = () => {
               senderId: currentUser.uid,
               date: Timestamp.now(),
               image: downloadURL,
+            }),
+          });
+        });
+      });
+    } else if (video) {
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, video);
+
+      await uploadBytesResumable(storageRef, video).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await updateDoc(doc(db, "chats", data.chatId), {
+            messages: arrayUnion({
+              id: uuid(),
+              text,
+              senderId: currentUser.uid,
+              date: Timestamp.now(),
               video: downloadURL,
+            }),
+          });
+        });
+      });
+    } else if (audio) {
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, audio);
+
+      await uploadBytesResumable(storageRef, audio).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await updateDoc(doc(db, "chats", data.chatId), {
+            messages: arrayUnion({
+              id: uuid(),
+              text,
+              senderId: currentUser.uid,
+              date: Timestamp.now(),
               audio: downloadURL,
             }),
           });
         });
       });
-
-      // if (video) {
-      //   const storageRef = ref(storage, uuid());
-
-      //   const uploadTask = uploadBytesResumable(storageRef, video);
-
-      //   await uploadBytesResumable(storageRef, video).then(() => {
-      //     getDownloadURL(storageRef).then(async (downloadURL) => {
-      //       await updateDoc(doc(db, "chats", data.chatId), {
-      //         messages: arrayUnion({
-      //           id: uuid(),
-      //           text,
-      //           senderId: currentUser.uid,
-      //           date: Timestamp.now(),
-      //           video: downloadURL,
-      //         }),
-      //       });
-      //     });
-      //   });
-      // }
-      // if (audio) {
-      //   const storageRef = ref(storage, uuid());
-
-      //   const uploadTask = uploadBytesResumable(storageRef, audio);
-
-      //   await uploadBytesResumable(storageRef, audio).then(() => {
-      //     getDownloadURL(storageRef).then(async (downloadURL) => {
-      //       await updateDoc(doc(db, "chats", data.chatId), {
-      //         messages: arrayUnion({
-      //           id: uuid(),
-      //           text,
-      //           senderId: currentUser.uid,
-      //           date: Timestamp.now(),
-      //           audio: downloadURL,
-      //         }),
-      //       });
-      //     });
-      //   });
-      // }
     } else {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
@@ -114,16 +108,42 @@ const Input = () => {
 
     setText("");
     setImage(null);
+    setVideo(null);
     setOpenMoreMenu(false);
   };
 
+  const handleIndicator = () => {
+    if (text.length > 2) {
+      console.log("fdlkfb");
+    }
+  };
+  const handleClick = (event) => {
+    // 👇️ toggle class on click
+    // event.currentTarget.classList.toggle("bg-salmon");
+
+    // 👇️ add class on click
+    event.currentTarget.classList.add("red");
+
+    // 👇️ remove class on click
+    // event.currentTarget.classList.remove('bg-salmon');
+  };
   return (
-    <div className="input">
+    <div
+      className="input"
+      onClick={handleClick}>
+      <div className="ticontainer">
+        <div className="tiblock">
+          <div className="tidot"></div>
+          <div className="tidot"></div>
+          <div className="tidot"></div>
+        </div>
+      </div>
       <input
         type="text"
         placeholder="Type something..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        id="message-input"
       />
       <FiMoreVertical onClick={(e) => setOpenMoreMenu(!openMoreMenu)} />
       {openMoreMenu && (
@@ -163,7 +183,7 @@ const Input = () => {
           </label>
         </div>
       )}
-      {error && <span>Something went wrong...</span>}
+      {/* {error && <span>Something went wrong...</span>} */}
       <div className="send">
         <IoSendSharp
           className="send__icon"

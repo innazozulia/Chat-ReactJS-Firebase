@@ -22,7 +22,7 @@ const Chat = () => {
     <div className="chat">
       <div className="chat__info">
         <span>{data.user?.displayName}</span>
-        <span>{data.user?.status}</span>
+        {/* <span>{data.user?.status}</span> */}
         <div className="chat__icons">
           <button
             onClick={() => setCamera(!camera)}

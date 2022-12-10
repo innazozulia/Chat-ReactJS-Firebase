@@ -3,12 +3,12 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
 import { ChatContext } from "../context/ChatContext";
+import { MdOutlinePermMedia } from "react-icons/md";
 
 const Chats = () => {
   const [chats, setChats] = React.useState([]);
 
   const { currentUser } = React.useContext(AuthContext);
-
   const { dispatch } = React.useContext(ChatContext);
 
   React.useEffect(() => {
@@ -45,7 +45,16 @@ const Chats = () => {
               />
               <div className="user__chat--info">
                 <span>{chat[1].userInfo?.displayName}</span>
-                <p>{chat[1].userInfo?.lastMessage?.text}</p>
+                <p>
+                  {chat[1].lastMessage?.text ? (
+                    chat[1].lastMessage?.text
+                  ) : (
+                    <span className="media">
+                      sent media file
+                      <MdOutlinePermMedia className="media__icon" />
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
           ))}

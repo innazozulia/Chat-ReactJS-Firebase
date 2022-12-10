@@ -12,6 +12,8 @@ const Message = ({ message }) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  // const messageClass = { message } === currentUser.uid ? "sent" : "received";
+
   return (
     <div
       ref={ref}
@@ -27,13 +29,33 @@ const Message = ({ message }) => {
         />
         <span>just now</span>
       </div>
+      {/* {messageClass && messageClass} */}
       <div className="message__content ">
-        <p>{message.text}</p>
-        {message.img && (
+        {message.text && <p>{message.text}</p>}
+        {message.image && (
           <img
-            src={message.img}
+            src={message.image}
             alt=""
           />
+        )}
+        {message.video && (
+          <video
+            width="320"
+            height="240"
+            controls>
+            <source
+              src={message.video}
+              type="video/mp4"
+            />
+          </video>
+        )}
+        {message.audio && (
+          <audio controls>
+            <source
+              src={message.audio}
+              type="audio/ogg"
+            />
+          </audio>
         )}
       </div>
     </div>
