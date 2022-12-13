@@ -112,30 +112,31 @@ const Input = () => {
     setOpenMoreMenu(false);
   };
 
-  const handleIndicator = () => {
+  const handleIndicator = (event) => {
     if (text.length > 2) {
+      event.currentTarget.classList.add("abc");
       console.log("fdlkfb");
     }
   };
-  const handleClick = (event) => {
-    // 👇️ toggle class on click
-    // event.currentTarget.classList.toggle("bg-salmon");
+  // const handleClick = (event) => {
+  //   // 👇️ toggle class on click
+  //   // event.currentTarget.classList.toggle("bg-salmon");
 
-    // 👇️ add class on click
-    event.currentTarget.classList.add("red");
+  //   // 👇️ add class on click
+  //   event.currentTarget.classList.add("red");
 
-    // 👇️ remove class on click
-    // event.currentTarget.classList.remove('bg-salmon');
-  };
+  //   // 👇️ remove class on click
+  //   // event.currentTarget.classList.remove('bg-salmon');
+  // };
   return (
     <div
       className="input"
-      onClick={handleClick}>
+      onClick={handleIndicator}>
       <div className="ticontainer">
         <div className="tiblock">
-          <div className="tidot"></div>
-          <div className="tidot"></div>
-          <div className="tidot"></div>
+          <div className="tidot active "></div>
+          <div className="tidot active "></div>
+          <div className="tidot active "></div>
         </div>
       </div>
       <input

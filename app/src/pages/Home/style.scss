@@ -247,10 +247,8 @@
                 border-radius: 10px;
                 position: relative;
 
-                .red {
-                    background-color: red;
-                    height: 30px;
-                    width: 400px;
+                .abc {
+                    padding: 45px 10px;
                 }
 
                 .ticontainer {
@@ -268,11 +266,11 @@
                             margin-right: 2px;
                             width: 4px;
 
-                            .red {
-                                background-color: red;
-                            }
+                            // .red {
+                            //     background-color: red;
+                            // }
 
-                            .tidot__active {
+                            .active {
                                 animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
                                 border-radius: 2px;
                                 display: inline-block;

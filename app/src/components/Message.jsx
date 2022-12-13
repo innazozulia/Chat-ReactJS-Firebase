@@ -13,6 +13,16 @@ const Message = ({ message }) => {
   }, [message]);
 
   // const messageClass = { message } === currentUser.uid ? "sent" : "received";
+  // const newMessage = ({ message }) => {
+  //   if (message.senderId !== currentUser.uid) {
+  //     console.log("work");
+  //   }
+  // };
+
+  // const handleClick = (event) => {
+  //   // 👇️ toggle isActive state on click
+  //   setIsActive((current) => !current);
+  // };
 
   return (
     <div
@@ -27,7 +37,8 @@ const Message = ({ message }) => {
           }
           alt=""
         />
-        <span>just now</span>
+        {/* <span>just now</span> */}
+        <span>{data.data}</span>
       </div>
       {/* {messageClass && messageClass} */}
       <div className="message__content ">
@@ -58,6 +69,11 @@ const Message = ({ message }) => {
           </audio>
         )}
       </div>
+      {/* <button
+        className={isActive ? "bg-salmon" : ""}
+        onClick={handleClick}>
+        Click
+      </button> */}
     </div>
   );
 };

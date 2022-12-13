@@ -7,14 +7,23 @@ import { MdOutlinePermMedia } from "react-icons/md";
 
 const Chats = () => {
   const [chats, setChats] = React.useState([]);
+  // const [isActive, setIsActive] = React.useState(false);
 
   const { currentUser } = React.useContext(AuthContext);
   const { dispatch } = React.useContext(ChatContext);
+  const { data } = React.useContext(ChatContext);
 
   React.useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
         setChats(doc.data());
+        // const handleTyping = () => {
+        //   if (data.user.uid !== currentUser.uid) {
+        //     console.log("works");
+        //     console.log(data);
+        //   }
+        //   handleTyping();
+        // };
       });
 
       return () => {

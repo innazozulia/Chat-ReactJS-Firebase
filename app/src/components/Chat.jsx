@@ -17,7 +17,7 @@ const Chat = () => {
 
   const { data } = React.useContext(ChatContext);
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="chat">
       <div className="chat__info">
