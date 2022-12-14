@@ -2,19 +2,13 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth, storage, db } from "../../firebase";
 import "../Form/Form.scss";
 
 const Register = () => {
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  // const [status, setStatus] = React.useState("");
-  // const options = ["Online", "Offline", "Busy", "Absent"];
-
-  // const onOptionChangeHandler = (event) => {
-  //   setStatus(event.target.value);
-  // };
 
   const navigate = useNavigate();
 
@@ -25,7 +19,6 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
-    // const status = e.target[4].value;
 
     try {
       //Create user
@@ -42,7 +35,7 @@ const Register = () => {
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
-              // status,
+              isOnline: true,
             });
             //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
@@ -50,14 +43,14 @@ const Register = () => {
               displayName,
               email,
               photoURL: downloadURL,
-              // status,
+              createdAt: Timestamp.fromDate(new Date()),
+              isOnline: true,
             });
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/");
           } catch (err) {
-            console.log(err);
             setError(true);
             setLoading(false);
           }

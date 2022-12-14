@@ -46,6 +46,7 @@ const Input = () => {
           });
         });
       });
+      console.log("active");
     } else if (video) {
       const storageRef = ref(storage, uuid());
 
@@ -112,33 +113,8 @@ const Input = () => {
     setOpenMoreMenu(false);
   };
 
-  const handleIndicator = (event) => {
-    if (text.length > 2) {
-      event.currentTarget.classList.add("abc");
-      console.log("fdlkfb");
-    }
-  };
-  // const handleClick = (event) => {
-  //   // 👇️ toggle class on click
-  //   // event.currentTarget.classList.toggle("bg-salmon");
-
-  //   // 👇️ add class on click
-  //   event.currentTarget.classList.add("red");
-
-  //   // 👇️ remove class on click
-  //   // event.currentTarget.classList.remove('bg-salmon');
-  // };
   return (
-    <div
-      className="input"
-      onClick={handleIndicator}>
-      <div className="ticontainer">
-        <div className="tiblock">
-          <div className="tidot active "></div>
-          <div className="tidot active "></div>
-          <div className="tidot active "></div>
-        </div>
-      </div>
+    <div className="input">
       <input
         type="text"
         placeholder="Type something..."
@@ -191,6 +167,17 @@ const Input = () => {
           onClick={handleSendMessage}
         />
       </div>
+      {/* {active && (
+        <div className="typingindicator__content">
+          <div className="typingindicator__container">
+            <div className="typingindicator__bubble">
+              <div className="typingindicator__bubble--dot"></div>
+              <div className="typingindicator__bubble--dot"></div>
+              <div className="typingindicator__bubble--dot"></div>
+            </div>
+          </div>
+        </div>
+      )} */}
     </div>
   );
 };

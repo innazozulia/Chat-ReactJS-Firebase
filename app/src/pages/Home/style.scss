@@ -146,6 +146,66 @@
                         flex-direction: column;
                         gap: 10px;
 
+                        // .typingindicator__content {
+                        //     visibility: hidden;
+
+                        //     .typingindicator__container {
+                        //         display: flex;
+                        //         flex: none;
+                        //         align-items: flex-end;
+                        //         // margin: $spacing4 0;
+
+
+                        //         .typingindicator__bubble {
+                        //             display: flex;
+                        //             align-items: center;
+                        //             justify-content: center;
+                        //             width: 52px;
+                        //             height: 40px;
+                        //             margin: 0px 8px;
+                        //             background-color: #f0f1f1;
+                        //             border-radius: 12px;
+
+
+                        //             .typingindicator__bubble--dot {
+                        //                 width: 4px;
+                        //                 height: 4px;
+                        //                 margin-right: 4px;
+                        //                 background-color: #57585a;
+                        //                 border-radius: 50%;
+                        //                 animation-name: bounce;
+                        //                 animation-duration: 1.3s;
+                        //                 animation-timing-function: linear;
+                        //                 animation-iteration-count: infinite;
+                        //             }
+
+                        //             .typingindicator__bubble--dot:first-of-type {
+                        //                 margin: 0px 4px;
+                        //             }
+
+                        //             .typingindicator__bubble--dot:nth-of-type(2) {
+                        //                 animation-delay: 0.15s;
+                        //             }
+
+                        //             .typingindicator__bubble--dot:nth-of-type(3) {
+                        //                 animation-delay: 0.3s;
+                        //             }
+
+                        //             @keyframes bounce {
+
+                        //                 0%,
+                        //                 60%,
+                        //                 100% {
+                        //                     transform: translateY(0);
+                        //                 }
+
+                        //                 30% {
+                        //                     transform: translateY(-4px);
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        // }
 
                         p {
                             // background-color: white;
@@ -180,54 +240,67 @@
 
                     }
 
-                    // .ticontainer {
+                    .typingindicator__content {
+                        // visibility: hidden;
 
-                    //     .tiblock {
-                    //         align-items: center;
-                    //         display: flex;
-                    //         height: 17px;
-
-                    //         .tidot {
-                    //             background-color: #1554d2;
-                    //             animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
-                    //             border-radius: 2px;
-                    //             display: inline-block;
-                    //             height: 4px;
-                    //             margin-right: 2px;
-                    //             width: 4px;
+                        .typingindicator__container {
+                            display: flex;
+                            flex: none;
+                            align-items: flex-end;
+                            // margin: $spacing4 0;
 
 
-                    //             @keyframes mercuryTypingAnimation {
-                    //                 0% {
-                    //                     -webkit-transform: translateY(0px)
-                    //                 }
-
-                    //                 28% {
-                    //                     -webkit-transform: translateY(-5px)
-                    //                 }
-
-                    //                 44% {
-                    //                     -webkit-transform: translateY(0px)
-                    //                 }
-                    //             }
-                    //         }
-
-                    //         .tidot:nth-child(1) {
-                    //             animation-delay: 200ms;
-                    //         }
-
-                    //         .tidot:nth-child(2) {
-                    //             animation-delay: 300ms;
-                    //         }
-
-                    //         .tidot:nth-child(3) {
-                    //             animation-delay: 400ms;
-                    //         }
+                            .typingindicator__bubble {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 52px;
+                                height: 40px;
+                                margin: 0px 8px;
+                                background-color: #f0f1f1;
+                                border-radius: 12px;
 
 
-                    //     }
+                                .typingindicator__bubble--dot {
+                                    width: 4px;
+                                    height: 4px;
+                                    margin-right: 4px;
+                                    background-color: #57585a;
+                                    border-radius: 50%;
+                                    animation-name: bounce;
+                                    animation-duration: 1.3s;
+                                    animation-timing-function: linear;
+                                    animation-iteration-count: infinite;
+                                }
 
-                    // }
+                                .typingindicator__bubble--dot:first-of-type {
+                                    margin: 0px 4px;
+                                }
+
+                                .typingindicator__bubble--dot:nth-of-type(2) {
+                                    animation-delay: 0.15s;
+                                }
+
+                                .typingindicator__bubble--dot:nth-of-type(3) {
+                                    animation-delay: 0.3s;
+                                }
+
+                                @keyframes bounce {
+
+                                    0%,
+                                    60%,
+                                    100% {
+                                        transform: translateY(0);
+                                    }
+
+                                    30% {
+                                        transform: translateY(-4px);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -249,66 +322,6 @@
 
                 .abc {
                     padding: 45px 10px;
-                }
-
-                .ticontainer {
-
-                    .tiblock {
-                        align-items: center;
-                        display: flex;
-                        height: 17px;
-
-                        .tidot {
-                            background-color: #1554d2;
-                            border-radius: 2px;
-                            display: inline-block;
-                            height: 4px;
-                            margin-right: 2px;
-                            width: 4px;
-
-                            // .red {
-                            //     background-color: red;
-                            // }
-
-                            .active {
-                                animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
-                                border-radius: 2px;
-                                display: inline-block;
-                                height: 4px;
-                                margin-right: 2px;
-                                width: 4px;
-                            }
-
-                            @keyframes mercuryTypingAnimation {
-                                0% {
-                                    -webkit-transform: translateY(0px)
-                                }
-
-                                28% {
-                                    -webkit-transform: translateY(-5px)
-                                }
-
-                                44% {
-                                    -webkit-transform: translateY(0px)
-                                }
-                            }
-                        }
-
-                        .tidot:nth-child(1) {
-                            animation-delay: 200ms;
-                        }
-
-                        .tidot:nth-child(2) {
-                            animation-delay: 300ms;
-                        }
-
-                        .tidot:nth-child(3) {
-                            animation-delay: 400ms;
-                        }
-
-
-                    }
-
                 }
 
 
@@ -358,17 +371,69 @@
                     .send__icon {
                         color: rgb(85, 85, 221);
                     }
-
-                    // button {
-                    //     border: none;
-                    //     padding: 10px 15px;
-                    //     color: white;
-                    //     background-color: #088345;
-                    //     cursor: pointer;
-                    //     border-radius: 5px;
-                    // }
                 }
             }
+
+            // .typingindicator__content {
+            //     // visibility: hidden;
+
+            //     .typingindicator__container {
+            //         display: flex;
+            //         flex: none;
+            //         align-items: flex-end;
+            //         // margin: $spacing4 0;
+
+
+            //         .typingindicator__bubble {
+            //             display: flex;
+            //             align-items: center;
+            //             justify-content: center;
+            //             width: 52px;
+            //             height: 40px;
+            //             margin: 0px 8px;
+            //             background-color: #f0f1f1;
+            //             border-radius: 12px;
+
+
+            //             .typingindicator__bubble--dot {
+            //                 width: 4px;
+            //                 height: 4px;
+            //                 margin-right: 4px;
+            //                 background-color: #57585a;
+            //                 border-radius: 50%;
+            //                 animation-name: bounce;
+            //                 animation-duration: 1.3s;
+            //                 animation-timing-function: linear;
+            //                 animation-iteration-count: infinite;
+            //             }
+
+            //             .typingindicator__bubble--dot:first-of-type {
+            //                 margin: 0px 4px;
+            //             }
+
+            //             .typingindicator__bubble--dot:nth-of-type(2) {
+            //                 animation-delay: 0.15s;
+            //             }
+
+            //             .typingindicator__bubble--dot:nth-of-type(3) {
+            //                 animation-delay: 0.3s;
+            //             }
+
+            //             @keyframes bounce {
+
+            //                 0%,
+            //                 60%,
+            //                 100% {
+            //                     transform: translateY(0);
+            //                 }
+
+            //                 30% {
+            //                     transform: translateY(-4px);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
         }
 
         .sidebar {
@@ -391,12 +456,28 @@
                     display: flex;
                     gap: 10px;
 
+
+
+
                     img {
                         background-color: #e2e5f0;
                         height: 24px;
                         width: 24px;
                         border-radius: 50%;
                         object-fit: cover;
+                        position: relative;
+                    }
+
+                    .user__wrapper {
+                        position: absolute;
+                        background: #0cbd64;
+                        width: 12px;
+                        height: 12px;
+                        z-index: 99;
+                        top: 8;
+                        border-radius: 50%;
+                        left: 4px;
+
                     }
                 }
 
@@ -443,6 +524,7 @@
                             color: rgb(27, 27, 27);
                         }
                     }
+
                 }
             }
 
@@ -455,6 +537,7 @@
                 // color: white;
                 cursor: pointer;
                 transition: all 1s ease;
+                position: relative;
 
                 &:hover {
                     background-color: #0cbd64;
@@ -462,13 +545,31 @@
                     border-radius: 5px;
                 }
 
+                .online {
+                    background: red;
+                }
+
+                .offline {
+                    background: blue;
+                }
 
                 img {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                     object-fit: cover;
+
                 }
+
+                // .counter {
+                //     position: absolute;
+                //     background-color: #088345;
+                //     top: 0px;
+                //     padding: 2px;
+                //     border-radius: 50%;
+                //     font-size: 11px;
+                //     color: white;
+                // }
 
                 .user__chat--info {
                     span {

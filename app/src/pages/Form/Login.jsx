@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { updateDoc, doc } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 
 import "../Form/Form.scss";
 
@@ -15,7 +16,11 @@ const Login = () => {
     const password = e.target[1].value;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(auth, email, password);
+
+      await updateDoc(doc(db, "users", res.user.uid), {
+        isOnline: true,
+      });
       navigate("/");
     } catch (error) {
       setError(true);

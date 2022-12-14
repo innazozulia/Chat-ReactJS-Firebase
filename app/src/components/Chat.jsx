@@ -14,14 +14,23 @@ import { ChatContext } from "../context/ChatContext";
 const Chat = () => {
   const [camera, setCamera] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
+  // const [typing, setTyping] = React.useState(false);
 
   const { data } = React.useContext(ChatContext);
 
-  // console.log(data);
+  // const updateData = (value) => {
+  //   e.preventDefault();
+  //   setTyping(true);
+  //   console.log("state");
+  // };
+  // updateData();
+
   return (
     <div className="chat">
       <div className="chat__info">
         <span>{data.user?.displayName}</span>
+
+        {/* {typing && <span>{data.user?.displayName} typing...</span>} */}
         {/* <span>{data.user?.status}</span> */}
         <div className="chat__icons">
           <button
